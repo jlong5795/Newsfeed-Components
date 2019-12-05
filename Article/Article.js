@@ -89,7 +89,7 @@ const data = [
 ];
 
 /* Step 1: Create a function that creates a component. You will want your component to look like the template below: 
-  
+
   <div class="article">
     <h2>{title of the article}</h2>
     <p class="date">{date of the article}</p>
@@ -112,3 +112,52 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
+
+function createArticle (currentArticle){
+    
+  //create elements
+  const article = document.createElement('div');
+  const articleTitle = document.createElement('h2');
+  const articleDate = document.createElement('p');
+  const paragraphOne = document.createElement('p');
+  const paragraphTwo = document.createElement('p');
+  const paragraphThree = document.createElement('p');
+  const expandButton = document.createElement('span');
+  //const collapseButton = document.createElement('span');
+
+  //add classes
+  article.classList.add('article');
+  articleDate.classList.add('date');
+  paragraphOne.classList.add('content');
+  paragraphTwo.classList.add('content');
+  paragraphThree.classList.add('content');
+  expandButton.classList.add('expandButton');
+  //collapseButton.classList.add('expandButton', 'close');
+
+  //set up structure (append)
+  article.append(articleDate, articleTitle, paragraphOne, paragraphTwo, paragraphThree, expandButton);
+
+  //set text content
+  articleTitle.textContent = currentArticle.title;
+  articleDate.textContent = currentArticle.date;
+  paragraphOne.textContent = currentArticle.firstParagraph;
+  paragraphTwo.textContent = currentArticle.secondParagraph;
+  paragraphThree.textContent = currentArticle.thirdParagraph;
+  expandButton.textContent = 'Click Here';
+
+
+  //Event Listener to button
+  expandButton.addEventListener('click', event => {
+    article.classList.toggle('article-open');
+  })
+
+  return article;
+}
+
+const articles = document.querySelector('.articles');
+
+let newArticles = data.map((current) => {
+  let newArticle = createArticle(current);
+  
+  return articles.appendChild(newArticle);
+})
